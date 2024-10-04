@@ -159,7 +159,7 @@
   }
 
   .profile-banner {
-    @apply h-[120px] w-full bg-gradient-mesh bg-cover bg-no-repeat;
+    @apply h-[120px] w-full  bg-cover bg-no-repeat bg-gradient-mesh;
   }
 
   .profile {
@@ -253,7 +253,7 @@
   }
 
   .mobilenav-sheet_close {
-    @apply flex gap-3 items-center p-4 rounded-lg w-full max-w-60;
+    @apply flex gap-3 items-center p-4 rounded-xl w-full max-w-60;
   }
 
   /* PlaidLink */
@@ -326,7 +326,7 @@
 
   /* Root Layout */
   .root-layout {
-    @apply flex h-16 items-center justify-between p-5 shadow-creditCard sm:p-8 md:hidden;
+    @apply  flex h-16 items-center justify-between p-5 shadow-creditCard sm:p-8 md:hidden;
   }
 
   /* Bank Info */
@@ -369,10 +369,10 @@
   }
 
   .sidebar-link {
-    @apply flex gap-3 items-center py-1 md:p-3 2xl:p-4 rounded-lg justify-center xl:justify-start;
+    @apply flex gap-3 items-center py-1 md:p-3 2xl:p-4  justify-center xl:justify-start rounded-xl;
   }
 
   .sidebar-label {
-    @apply text-16 font-semibold text-gray-900 max-xl:hidden;
+    @apply text-16 font-semibold max-xl:hidden;
   }
 }

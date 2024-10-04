@@ -19,3 +19,13 @@ export declare interface DoughnutChartProps {
 export declare interface SiderbarProps {
     user: string;
 }
+
+export declare interface MobileNavProps {
+    user: string;
+}
+
+export declare interface RightSidebarProps {
+    user: string;
+    transactions: [];
+    banks: [];
+}

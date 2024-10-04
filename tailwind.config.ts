@@ -49,13 +49,19 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+				},
   		},
+			backgroundImage: {
+				"bank-gradient": "linear-gradient(90deg, #0179FE 0%, #4893FF 100%)",
+				"gradient-mesh": "url('/icons/gradient-mesh.svg')",
+				"bank-green-gradient":
+					"linear-gradient(90deg, #01797A 0%, #489399 100%)",
+			},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+			},
   	}
   },
   plugins: [animatePlugin],

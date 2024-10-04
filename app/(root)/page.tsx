@@ -1,5 +1,6 @@
 import React from 'react'
 import HeaderBox from '@/components/HeaderBox'
+import RightSidebar from '@/components/RightSidebar'
 
 const Home = () => {
   const loggedIn = {
@@ -16,7 +17,13 @@ const Home = () => {
             subtext="Access and manage your account and transactions efficiently"
           />
         </header>
+        recent transitions
       </div>
+      <RightSidebar
+        user={loggedIn}
+        transactions={[]}
+        banks={[]}
+      />
     </section>
   )
 }
