@@ -4,7 +4,9 @@ import RightSidebar from '@/components/RightSidebar'
 
 const Home = () => {
   const loggedIn = {
-    firstName: 'Adrian',
+    firstName: 'Bdrian1',
+    lastName: 'Bdrian1',
+    email: 'Bdrian1@gmail.com',
   }
   return (
     <section className='home'>
@@ -22,10 +24,11 @@ const Home = () => {
       <RightSidebar
         user={loggedIn}
         transactions={[]}
-        banks={[]}
+        banks={[{currentBalance: 123.50}, {currentBalance: 123.50}]}
       />
     </section>
   )
 }
 
 export default Home
+// 95  52
