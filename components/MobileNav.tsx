@@ -22,13 +22,13 @@ const MobileNav = ({ user }: MobileNavProps) => {
     <section className="w-full max-w-[264px]">
       <Sheet>
          <SheetTrigger>
-          <Image
-            src="/icons/hamburger.svg"
-            width={30}
-            height={30}
-            alt="menu"
-            className="cursor-pointer"
-          />
+            <Image
+              src="/icons/hamburger.svg"
+              width={30}
+              height={30}
+              alt="menu"
+              className="cursor-pointer"
+            />
         </SheetTrigger>
         <SheetContent side="left" className="border-none bg-white">
           <Link href="/" className="cursor-pointer flex items-center gap-1 px-4">

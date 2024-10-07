@@ -8,6 +8,8 @@ import { sidebarLinks } from '@/constants'
 import {usePathname} from 'next/navigation'
 import {cn} from '@/lib/utils'
 
+
+//左侧菜单栏
 const Siderbar = ({ user }: SiderbarProps) => {
   const pathname = usePathname()
 

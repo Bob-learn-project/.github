@@ -7,6 +7,8 @@ import Image from 'next/image'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+
+
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -15,11 +17,13 @@ import { authFormSchema } from '@/lib/utils';
 import CustomInput from './CustomInput'
 import { useState } from 'react'
 import { Loader2 } from 'lucide-react';
-import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions';
+// import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions';
 import { useRouter } from 'next/navigation';
+import { signIn, signUp } from '@/lib/actions/user.actions'
 
 import { AuthFormProps } from '@/types'
 const AuthForm = ({ type }: AuthFormProps) => {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const formSchema = authFormSchema(type);
@@ -33,17 +37,23 @@ const AuthForm = ({ type }: AuthFormProps) => {
     })
    
     // 2. Define a submit handler.
-    async function onSubmit(values: z.infer<typeof formSchema>) {
+    const onSubmit = async (data: z.infer<typeof formSchema>) => {
       // Do something with the form values.
       // ✅ This will be type-safe and validated.
       setIsLoading(true)
       try {
         if (type === 'sign-in') {
-          // sign-in
-        } else {
-          const response = await signUp({
+          // sign-in 登录
+          const response = await signIn({
             email: data.email,
-          })
+            password: data.password
+          });
+          if (response) {
+            router.push('/')
+          }
+        } else {
+          // sign-up 注册
+          const response = await signUp(data)
           setUser(response)
         }
       }catch (error) {
@@ -145,4 +155,3 @@ const AuthForm = ({ type }: AuthFormProps) => {
 }
 
 export default AuthForm
-231

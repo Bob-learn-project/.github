@@ -100,3 +100,20 @@ export declare interface AuthFormProps {
     type: 'sign-in' | 'sign-up';
 }
 
+export declare type SignUpParams = {
+    firstName?: string;
+    lastName?: string;
+    address1?: string;
+    city?: string;
+    state?: string;
+    postalCode?: string;
+    dateOfBirth?: string;
+    ssn?: string;
+    email: string;
+    password: string;
+};
+  
+export declare interface SignInProps {
+    email: string;
+    password: string;
+  }
