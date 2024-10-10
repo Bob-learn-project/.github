@@ -17,9 +17,9 @@ import { authFormSchema } from '@/lib/utils';
 import CustomInput from './CustomInput'
 import { useState } from 'react'
 import { Loader2 } from 'lucide-react';
-// import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions';
 import { useRouter } from 'next/navigation';
 import { signIn, signUp } from '@/lib/actions/user.actions'
+
 
 import { AuthFormProps } from '@/types'
 const AuthForm = ({ type }: AuthFormProps) => {
@@ -42,6 +42,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
       // ✅ This will be type-safe and validated.
       setIsLoading(true)
       try {
+        //登录
         if (type === 'sign-in') {
           // sign-in 登录
           const response = await signIn({
@@ -51,10 +52,13 @@ const AuthForm = ({ type }: AuthFormProps) => {
           if (response) {
             router.push('/')
           }
-        } else {
+        }
+        //注册
+        if (type === 'sign-up') {
           // sign-up 注册
           const response = await signUp(data)
           setUser(response)
+          console.log(user);
         }
       }catch (error) {
         console.log(error)
@@ -96,7 +100,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
       {
         user ? (
           <div className="flex flex-col gap-4">
-            {/* plaidlink */}
+            {user}
           </div>
         ) : (
             <>
