@@ -4,6 +4,7 @@ import { cookies } from 'next/headers'
 
 
 
+
 // Session client, used to make requests on behalf of the logged in user
 // 会话客户端
 export async function createSessionClient() {
@@ -11,9 +12,10 @@ export async function createSessionClient() {
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
     .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT!);
 
-  // Get the session cookie from the request and set the session
-  const session = cookies().get("appwrite-session");
 
+  // 获取会话 cookie
+  const session = cookies().get("appwrite-session");
+    console.log("Session cookie:", session); // 打印 cookie 信息
   if (!session || !session.value) {
      throw new Error("No session");
   }
@@ -34,7 +36,7 @@ export async function createAdminClient() {
   const client = new Client()
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
     .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT!)
-    .setKey(process.env.NEXT_APPWRITE_KEY!); // Set the API key here!
+    .setKey(process.env.NEXT_APPWRITE_SECRET!); // Set the API key here!
 
   // Return the services you need
   return {

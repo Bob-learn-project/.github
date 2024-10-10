@@ -17,7 +17,7 @@ import { authFormSchema } from '@/lib/utils';
 import CustomInput from './CustomInput'
 import { useState } from 'react'
 import { Loader2 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { signIn, signUp } from '@/lib/actions/user.actions'
 
 
@@ -56,9 +56,9 @@ const AuthForm = ({ type }: AuthFormProps) => {
         //注册
         if (type === 'sign-up') {
           // sign-up 注册
-          const response = await signUp(data)
-          setUser(response)
-          console.log(user);
+          const user = await signUp(data)
+          setUser(user)
+          redirect('/')
         }
       }catch (error) {
         console.log(error)
@@ -100,7 +100,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
       {
         user ? (
           <div className="flex flex-col gap-4">
-            {user}
+             <pre>{JSON.stringify(user, null, 2)}</pre> {/* 或者选择特定属性显示 */}
           </div>
         ) : (
             <>

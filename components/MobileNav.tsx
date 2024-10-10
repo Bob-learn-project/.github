@@ -13,6 +13,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import React from 'react'
 import { MobileNavProps } from '@/types'
+import Footer from "./Footer"
 
 //右上角菜单栏
 const MobileNav = ({ user }: MobileNavProps) => {
@@ -67,11 +68,10 @@ const MobileNav = ({ user }: MobileNavProps) => {
                     )
               })}
 
-              USER
               </nav>
             </SheetClose>
 
-            {/* <Footer user={user} type="mobile" /> */}
+            <Footer user={user} type="mobile" />
           </div>
         </SheetContent>
       </Sheet>

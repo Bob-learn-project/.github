@@ -6,6 +6,7 @@ import { Control, FieldPath } from 'react-hook-form'
 import { z } from 'zod'
 import { authFormSchema } from '@/lib/utils'
 
+const formSchema = authFormSchema('sign-up') 
 
 interface CustomInputProps {
   //全部参数封装到函数 学习z库 important
@@ -15,12 +16,10 @@ interface CustomInputProps {
   placeholder: string
 }
 
-const formSchema = authFormSchema('sign-up')
 
 const CustomInput = ({ control, name, label, placeholder }: CustomInputProps) => {
 
   return (
-    <div>
       <FormField
         control={control}
         name={name}
@@ -40,7 +39,6 @@ const CustomInput = ({ control, name, label, placeholder }: CustomInputProps) =>
           </div>
         )}
       />
-    </div>
   )
 }
 

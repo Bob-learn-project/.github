@@ -1,11 +1,15 @@
 'use server'
 
 import { defineMiddleware } from "astro:middleware";
-import { createSessionClient } from "./server/appwrite";
+import { createSessionClient, createAdminClient } from "../appwrite";
 import { SignInProps, SignUpParams } from "@/types";
-import { ID } from "appwrite";
+
+import { ID, Query } from "node-appwrite";
 import { cookies } from "next/headers";
 import { parseStringify } from "../utils";
+import { Client } from "node-appwrite";
+import { parse } from "path";
+
 export const signIn = async (userData: SignInProps) => {
 
   try {
@@ -16,40 +20,51 @@ export const signIn = async (userData: SignInProps) => {
 }
 
 
-export const signUp = async (userData: SignUpParams) => {
-  const { firstName, lastName, email, password } = userData;
+export const signUp = async({password, ...userData}: SignUpParams) => {
+  const { firstName, lastName, email } = userData;
+
   try {
-    const { account } = createSessionClient();
-    // Create the email password session
-    const newUserAccount = await account.create(
+    const { account} = await createAdminClient();
+
+    const newUser = await account.create(
       ID.unique(),
-      userData.email,
-      userData.password,
+      email,
+      password,
       `${firstName} ${lastName}`
     );
 
     const session = await account.createEmailPasswordSession(email, password);
-
     // Set the session cookie
     cookies().set("appwrite-session", session.secret, {
       path: "/",
-      expires: new Date(session.expire),
+      httpOnly: true,
       sameSite: "strict",
       secure: true,
-      httpOnly: true,
     });
     return parseStringify(newUser);
   } catch (error) {
-    console.log(error)
+    console.error("Error during sign up:", error);
   }
 }
 
 
-export const onRequest = defineMiddleware(async ({ request, locals }, next) => {
+export async function getLoggedInUser(){
   try {
-    const { account } = createSessionClient(request);
-    locals.user = await account.get();
-  } catch {}
+    const { account } = await createSessionClient();
+    const user = await account.get();
+    return parseStringify(user);
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
 
-  return next();
-});
+export const logoutAccount = async () => {
+  try {
+    const { account } = await createSessionClient();
+    cookies().delete('appwrite-session');
+    await account.deleteSession('current');
+  } catch {
+    return null;
+  }
+}

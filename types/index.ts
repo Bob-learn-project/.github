@@ -17,11 +17,11 @@ export declare interface DoughnutChartProps {
 }
 
 export declare interface SiderbarProps {
-    user: string;
+    user: User;
 }
 
 export declare interface MobileNavProps {
-    user: string;
+    user: User;
 }
 
 export declare interface RightSidebarProps {
@@ -81,6 +81,12 @@ export declare interface CreditCardProps {
     userName: string;
     showBalance?: boolean;
 }
+
+export declare interface FooterProps {
+  user: User;
+  type?: 'mobile' | 'desktop'
+}
+
 
 export declare type Account = {
     id: string;

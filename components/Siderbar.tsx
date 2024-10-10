@@ -6,20 +6,20 @@ import Link from 'next/link'
 import { SiderbarProps } from '@/types'
 import { sidebarLinks } from '@/constants'
 import {usePathname} from 'next/navigation'
-import {cn} from '@/lib/utils'
+import { cn } from '@/lib/utils'
+import Footer from './Footer'
 
 
 //左侧菜单栏
 const Siderbar = ({ user }: SiderbarProps) => {
   const pathname = usePathname()
-
   return (
     <section className='sidebar'>
       <nav className='flex flex-col gap-4'>
         <Link href='/' className='mb-10 cursor-pointer flex items-center gap-2 '>
           <Image src="/icons/logo.svg" alt='Horizon logo' width={32} height={32} className=' max-xl:size-12' />
           <h1 className='sidebar-logo'>
-            {user}
+            {user.name}
           </h1>
         </Link>
         {sidebarLinks.map((item) => {
@@ -44,9 +44,7 @@ const Siderbar = ({ user }: SiderbarProps) => {
         })}
       </nav>
       <div className='sidebar-footer'>
-        <p className='text-16 text-gray-900'>
-          {user}
-        </p>
+        <Footer user={user} />
       </div>
     </section>
   )
