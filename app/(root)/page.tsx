@@ -4,14 +4,10 @@ import RightSidebar from '@/components/RightSidebar'
 import { getLoggedInUser } from '@/lib/actions/user.actions'
 
 const Home = async () => {
+  //登录的用户信息
   const loggedIn = await getLoggedInUser();
   console.log(loggedIn);
-  console.log('获取的登录用户结果')
-  // const loggedIn = {
-  //   // name: 'hell',
-  //   firstName: 'adrion',
-  //   lastName: 'nb'
-  // }
+
   return (
     <section className='home'>
       <div className='home-content'>

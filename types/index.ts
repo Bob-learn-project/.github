@@ -122,4 +122,54 @@ export declare type SignUpParams = {
 export declare interface SignInProps {
     email: string;
     password: string;
-  }
+}
+  
+
+export declare interface PlaidLinkProps {
+  user: User;
+  variant?: "primary" | "ghost";
+  dwollaCustomerId?: string;
+}
+
+export declare interface exchangePublicTokenProps {
+    publicToken: string;
+    user: User;
+}
+
+
+export declare interface createBankAccountProps {
+  accessToken: string;
+  userId: string;
+  accountId: string;
+  bankId: string;
+  fundingSourceUrl: string;
+  shareableId: string;
+}
+
+export declare type NewDwollaCustomerParams = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    type: string;
+    address1: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    dateOfBirth: string;
+    ssn: string;
+};
+  
+export declare interface CreateFundingSourceOptions {
+  customerId: string; // Dwolla Customer ID
+  fundingSourceName: string; // Dwolla Funding Source Name
+  plaidToken: string; // Plaid Account Processor Token
+  _links: object; // Dwolla On Demand Authorization Link
+}
+
+export declare type TransferParams = {
+    sourceFundingSourceUrl: string;
+    destinationFundingSourceUrl: string;
+    amount: string;
+};
+
+  

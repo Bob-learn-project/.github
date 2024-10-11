@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
- 
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -19,6 +19,7 @@ import { useState } from 'react'
 import { Loader2 } from 'lucide-react';
 import { redirect, useRouter } from 'next/navigation';
 import { signIn, signUp } from '@/lib/actions/user.actions'
+import PlaidLink from './PlaidLink'
 
 
 import { AuthFormProps } from '@/types'
@@ -27,45 +28,57 @@ const AuthForm = ({ type }: AuthFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const formSchema = authFormSchema(type);
-    // 1. Define your form.
-    const form = useForm<z.infer<typeof formSchema>>({
-      resolver: zodResolver(formSchema),
-      defaultValues: {
-        email: '',
-        password: '',
-      },
-    })
-   
-    // 2. Define a submit handler.
-    const onSubmit = async (data: z.infer<typeof formSchema>) => {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
-      setIsLoading(true)
-      try {
-        //登录
-        if (type === 'sign-in') {
-          // sign-in 登录
-          const response = await signIn({
-            email: data.email,
-            password: data.password
-          });
-          if (response) {
-            router.push('/')
-          }
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  })
+
+  // 2. Define a submit handler.
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    setIsLoading(true)
+    try {
+      //登录
+      if (type === 'sign-in') {
+        // sign-in 登录
+        const response = await signIn({
+          email: data.email,
+          password: data.password
+        });
+        if (response) {
+          router.push('/')
         }
-        //注册
-        if (type === 'sign-up') {
-          // sign-up 注册
-          const user = await signUp(data)
-          setUser(user)
-          redirect('/')
-        }
-      }catch (error) {
-        console.log(error)
-      }finally {
-        setIsLoading(false)
       }
+      //注册
+      if (type === 'sign-up') {
+        const userData = {
+          firstName: data.firstName!,
+          lastName: data.lastName!,
+          address1: data.address1!,
+          city: data.city!,
+          state: data.state!,
+          postalCode: data.postalCode!,
+          dateOfBirth: data.dateOfBirth!,
+          ssn: data.ssn!,
+          email: data.email,
+          password: data.password
+        }
+
+        const newUser = await signUp(userData);
+        setUser(newUser)
+        redirect('/')
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
     }
+  }
 
 
   return (
@@ -89,7 +102,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
                 : 'Sign-up'}
             <p className="text-14 text-gray-600">
               {
-                user 
+                user
                   ? 'Link your account to get started'
                   : 'Please enter your detail'
               }
@@ -154,6 +167,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
 
             </>
         )}
+      
     </section>
   )
 }
