@@ -15,7 +15,6 @@ export async function createSessionClient() {
 
   // 获取会话 cookie
   const session = cookies().get("appwrite-session");
-    console.log("Session cookie:", session); // 打印 cookie 信息
   if (!session || !session.value) {
      throw new Error("No session");
   }
