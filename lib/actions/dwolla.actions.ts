@@ -1,6 +1,10 @@
 "use server";
 
 import { Client } from "dwolla-v2";
+import { NewDwollaCustomerParams } from "@/types";
+import { AddFundingSourceParams } from "@/types";
+import { CreateFundingSourceOptions } from "@/types";
+import { TransferParams } from "@/types";
 
 const getEnvironment = (): "production" | "sandbox" => {
   const environment = process.env.DWOLLA_ENV as string;

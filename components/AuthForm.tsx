@@ -68,10 +68,10 @@ const AuthForm = ({ type }: AuthFormProps) => {
           email: data.email,
           password: data.password
         }
-
+        console.log(userData);
         const newUser = await signUp(userData);
+        
         setUser(newUser)
-        redirect('/')
       }
     } catch (error) {
       console.log(error)
@@ -113,7 +113,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
       {
         user ? (
           <div className="flex flex-col gap-4">
-             <pre>{JSON.stringify(user, null, 2)}</pre> {/* 或者选择特定属性显示 */}
+            <PlaidLink user={user} variant="primary" />
           </div>
         ) : (
             <>

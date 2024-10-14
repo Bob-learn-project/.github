@@ -1,14 +1,13 @@
 'use server'
 
-import { defineMiddleware } from "astro:middleware";
 import { createSessionClient, createAdminClient } from "../appwrite";
 import { SignInProps, SignUpParams } from "@/types";
 
 import { ID, Query } from "node-appwrite";
 import { cookies } from "next/headers";
 import { parseStringify } from "../utils";
-import { Client } from "node-appwrite";
-import { parse } from "path";
+
+
 import { plaidClient } from '@/lib/plaid';
 import { CountryCode, ProcessorTokenCreateRequest, ProcessorTokenCreateRequestProcessorEnum, Products } from "plaid";
 import { exchangePublicTokenProps } from "@/types";
@@ -34,7 +33,8 @@ export const signIn = async (userData: SignInProps) => {
 
 export const signUp = async({password, ...userData}: SignUpParams) => {
   const { firstName, lastName, email } = userData;
-
+  console.log(firstName);
+  console.log(lastName);
   try {
     const { account, database} = await createAdminClient();
     const newUserAccount = await account.create(
@@ -48,7 +48,7 @@ export const signUp = async({password, ...userData}: SignUpParams) => {
       
     const dwollaCustomerUrl = await createDwollaCustomer({
         ...userData,
-        type: 'personal'
+      type: 'personal',
     })
 
     if(!dwollaCustomerUrl) throw new Error('Error creating Dwolla customer')

@@ -173,3 +173,18 @@ export declare type TransferParams = {
 };
 
   
+export declare interface CreateFundingSourceOptions {
+    customerId: string; // Dwolla Customer ID
+    fundingSourceName: string; // Dwolla Funding Source Name
+    plaidToken: string; // Plaid Account Processor Token
+    _links: object; // Dwolla On Demand Authorization Link
+}
+  
+
+
+export declare type AddFundingSourceParams = {
+    dwollaCustomerId: string;
+    processorToken: string;
+    bankName: string;
+};
+  
