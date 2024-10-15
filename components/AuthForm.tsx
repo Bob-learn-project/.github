@@ -68,7 +68,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
           email: data.email,
           password: data.password
         }
-        console.log(userData);
+        
         const newUser = await signUp(userData);
         
         setUser(newUser)

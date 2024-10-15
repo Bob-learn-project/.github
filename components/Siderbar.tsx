@@ -19,7 +19,7 @@ const Siderbar = ({ user }: SiderbarProps) => {
         <Link href='/' className='mb-10 cursor-pointer flex items-center gap-2 '>
           <Image src="/icons/logo.svg" alt='Horizon logo' width={32} height={32} className=' max-xl:size-12' />
           <h1 className='sidebar-logo'>
-            {user.name}
+            Horizon
           </h1>
         </Link>
         {sidebarLinks.map((item) => {

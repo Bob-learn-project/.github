@@ -107,14 +107,14 @@ export declare interface AuthFormProps {
 }
 
 export declare type SignUpParams = {
-    firstName?: string;
-    lastName?: string;
-    address1?: string;
-    city?: string;
-    state?: string;
-    postalCode?: string;
-    dateOfBirth?: string;
-    ssn?: string;
+    firstName: string;
+    lastName: string;
+    address1: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    dateOfBirth: string;
+    ssn: string;
     email: string;
     password: string;
 };
@@ -187,4 +187,37 @@ export declare type AddFundingSourceParams = {
     processorToken: string;
     bankName: string;
 };
+
+export declare interface CreateTransactionProps {
+    name: string;
+    amount: string;
+    senderId: string;
+    senderBankId: string;
+    receiverId: string;
+    receiverBankId: string;
+    email: string;
+  }
+
+export declare interface getTransactionsByBankIdProps {
+bankId: string;
+}
+
+export declare interface getBanksProps {
+    userId: string;
+}
+  
+export declare interface getBankProps {
+    documentId: string;
+  }
+
+export declare type SearchParamProps = {
+    params: { [key: string]: string };
+    searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export declare interface getUserInfoProps {
+    userId: string;
+}
+
+  
   

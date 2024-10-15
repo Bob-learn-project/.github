@@ -2,11 +2,29 @@ import React from 'react'
 import HeaderBox from '@/components/HeaderBox'
 import RightSidebar from '@/components/RightSidebar'
 import { getLoggedInUser } from '@/lib/actions/user.actions'
+import { getAccounts, getAccount } from '@/lib/actions/bank.actions'
+import TotalBalanceBox from '@/components/TotalBalanceBox'
+import { SearchParamProps } from '@/types'
+import RecentTransactions from '@/components/RecentTransactions'
 
-const Home = async () => {
+const Home = async ({searchParams: {id, page}} : SearchParamProps) => {
   //登录的用户信息
+  const currentPage = Number(page as string) || 1;
   const loggedIn = await getLoggedInUser();
-  console.log(loggedIn);
+  const accounts = await getAccounts({
+    userId: loggedIn.$id
+  });
+  // console.log({
+  //   accountsData,
+  //   account
+  // })
+
+  if (!accounts) return;
+
+  const accountsData = accounts?.data;
+  const appwriteItemId = (id as string) || accountsData[0]?.appwriteItemId;
+
+  // const account = await getAccount({ appwriteItemId })
 
   return (
     <section className='home'>
@@ -18,13 +36,24 @@ const Home = async () => {
             user={loggedIn?.name || 'Guest'}
             subtext="Access and manage your account and transactions efficiently"
           />
+          <TotalBalanceBox 
+            accounts={accountsData}
+            totalBanks={accounts?.totalBanks}
+            totalCurrentBalance={accounts?.totalCurrentBalance}
+          />
         </header>
         recent transitions
+        {/* <RecentTransactions
+          accounts={accountsData}
+          transactions={accounts.transactions}
+          appwiteItemId={appwriteItemId}
+          page={currentPage}
+        /> */}
       </div>
       <RightSidebar
         user={loggedIn}
-        transactions={[]}
-        banks={[{currentBalance: 123.50}, {currentBalance: 123.50}]}
+        transactions={accounts?.transactions}
+        banks={accountsData?.slice(0, 2)}
       />
     </section>
   )

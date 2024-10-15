@@ -6,22 +6,25 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { PlaidLinkOnSuccess, PlaidLinkOptions, usePlaidLink } from 'react-plaid-link'
 import { exchangePublicToken } from '@/lib/actions/user.actions'
+import { createLinkToken } from '@/lib/actions/user.actions'
 
-
+//链接银行账户组件
 const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
   const router = useRouter();
 
   const [token, setToken] = useState('');
 
+  //创建用户令牌
   useEffect(() => {
     const getLinkToken = async () => {
-      // const data = await createLinkToken(user);
-      // setToken(data?.linkToken)
+      const data = await createLinkToken(user);
+      setToken(data?.linkToken || '')
     }
 
     getLinkToken();
   }, [user]);
 
+  //交换公钥 获取公钥
   const onSuccess = useCallback<PlaidLinkOnSuccess>(
     async (public_token:string) => {
       await exchangePublicToken({
@@ -32,6 +35,7 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
     }, [user, router]
   )  
   
+  //获取配置
   const config: PlaidLinkOptions = {
     token,
     onSuccess
@@ -44,7 +48,7 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
       {variant === 'primary' ? (
         <Button
           className='plaidlink-primary'
-          onClick={() => { }}
+          onClick={() => open()}
           disabled={!ready}
         >
           Connect bank

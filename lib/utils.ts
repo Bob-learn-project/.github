@@ -1,5 +1,5 @@
 /* eslint-disable no-prototype-builtins */
-import { type ClassValue, clsx } from "clsx";
+import { type ClassValue,  clsx } from "clsx";
 import qs from "query-string";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
@@ -36,7 +36,7 @@ export const authFormSchema = (type: string) => z.object({
 
 
 
-export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
+export const parseStringify = <T>(value: T): T => JSON.parse(JSON.stringify(value));
 
 
 export function extractCustomerIdFromUrl(url: string) {
@@ -48,3 +48,8 @@ export function extractCustomerIdFromUrl(url: string) {
 
   return customerId;
 }
+
+export function encryptId(id: string) {
+  return btoa(id);
+}
+
