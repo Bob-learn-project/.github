@@ -12,11 +12,6 @@ const HeaderBox = ({type, title, subtext, user}:HeaderBoxProps) => {
         )}
       </h1>
       <p className='header-box-subtext'>{subtext}</p>
-        <TotalBalanceBox
-              title="Total Balance"
-              totalBanks={1}
-              totalCurrentBalance={1250.35}
-        />
     </div>
   )
 }

@@ -11,20 +11,27 @@ const Home = async ({searchParams: {id, page}} : SearchParamProps) => {
   //登录的用户信息
   const currentPage = Number(page as string) || 1;
   const loggedIn = await getLoggedInUser();
+
+  if (!loggedIn) {
+    // 处理未登录的情况，例如返回或抛出错误
+    return;
+  }
   const accounts = await getAccounts({
-    userId: loggedIn.$id
+    userId: loggedIn[`$id`]
   });
-  // console.log({
-  //   accountsData,
-  //   account
-  // })
+  //获取不到access_Token 导致账户出错 无法继续
+  console.log(accounts);
 
   if (!accounts) return;
 
   const accountsData = accounts?.data;
   const appwriteItemId = (id as string) || accountsData[0]?.appwriteItemId;
+  const account = await getAccount({ appwriteItemId })
 
-  // const account = await getAccount({ appwriteItemId })
+  console.log({
+    accountsData,
+    account
+  })
 
   return (
     <section className='home'>
@@ -42,17 +49,19 @@ const Home = async ({searchParams: {id, page}} : SearchParamProps) => {
             totalCurrentBalance={accounts?.totalCurrentBalance}
           />
         </header>
-        recent transitions
-        {/* <RecentTransactions
-          accounts={accountsData}
-          transactions={accounts.transactions}
-          appwiteItemId={appwriteItemId}
-          page={currentPage}
-        /> */}
+          recent transitions
+          <RecentTransactions
+            accounts={accountsData}
+            transactions={account?.transactions}
+            appwiteItemId={appwriteItemId}
+            page={currentPage}
+          />
       </div>
+
+
       <RightSidebar
         user={loggedIn}
-        transactions={accounts?.transactions}
+        transactions={account?.transactions}
         banks={accountsData?.slice(0, 2)}
       />
     </section>

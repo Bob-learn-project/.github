@@ -14,16 +14,20 @@ import { parseStringify } from "../utils";
 
 import { getTransactionsByBankId } from "./transaction.actions";
 import { getBanks, getBank } from "./user.actions";
+import { getAccountsProps, getAccountProps, getInstitutionProps, getTransactionsProps, Bank } from "@/types";
 
 // Get multiple bank accounts
 export const getAccounts = async ({ userId }: getAccountsProps) => {
   try {
     // get banks from db
-    const banks = await getBanks({ userId });
-
+    const banks:any = await getBanks({ userId });
+    console.log(banks);
+    console.log('banks上面')
     const accounts = await Promise.all(
       banks?.map(async (bank: Bank) => {
         // get each account info from plaid
+        console.log(bank);
+        console.log(bank.accessToken);
         const accountsResponse = await plaidClient.accountsGet({
           access_token: bank.accessToken,
         });

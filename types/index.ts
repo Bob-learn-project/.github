@@ -48,7 +48,7 @@ declare type Transaction = {
     receiverBankId: string;
 };
 
-declare type Bank = {
+export declare type Bank = {
     $id: string;
     accountId: string;
     bankId: string;
@@ -219,5 +219,18 @@ export declare interface getUserInfoProps {
     userId: string;
 }
 
+export declare interface getAccountsProps {
+    userId: string;
+  }
+
+export declare interface getAccountProps {
+    appwriteItemId: string;
+}
   
+export declare interface getInstitutionProps {
+    institutionId: string;
+  }
   
+export declare interface getTransactionsProps {
+    accessToken: string;
+}

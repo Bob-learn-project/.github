@@ -34,7 +34,7 @@ export const signIn = async ({email, password}: SignInProps) => {
       secure: true,
     })
 
-    const user = await getUserInfo({ userId: sessionStorage.userId })
+    const user = await getUserInfo({ userId: session.userId })
 
     return parseStringify(user);
 
@@ -49,8 +49,6 @@ export const signUp = async({password, ...userData}: SignUpParams) => {
 
   let newUserAccount;
 
-  console.log(firstName);
-  console.log(lastName);
   try {
     const { account, database } = await createAdminClient();
     
@@ -111,7 +109,9 @@ export const signUp = async({password, ...userData}: SignUpParams) => {
 export async function getLoggedInUser(){
   try {
     const { account } = await createSessionClient();
-    const user = await account.get();
+    const result = await account.get();
+
+    const user = await getUserInfo({ userId: result.$id})
     return parseStringify(user);
   } catch (error) {
     console.log(error);

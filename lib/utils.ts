@@ -39,6 +39,7 @@ export const authFormSchema = (type: string) => z.object({
 export const parseStringify = <T>(value: T): T => JSON.parse(JSON.stringify(value));
 
 
+
 export function extractCustomerIdFromUrl(url: string) {
   // Split the URL string by '/'
   const parts = url.split("/");

@@ -18,6 +18,8 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
   useEffect(() => {
     const getLinkToken = async () => {
       const data = await createLinkToken(user);
+      console.log(data);
+      console.log('data 数据')
       setToken(data?.linkToken || '')
     }
 
@@ -40,6 +42,7 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
     token,
     onSuccess
   }
+  console.log(config + '配置信息');
 
   const { open, ready } = usePlaidLink(config);
 

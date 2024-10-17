@@ -17,7 +17,7 @@ import { authFormSchema } from '@/lib/utils';
 import CustomInput from './CustomInput'
 import { useState } from 'react'
 import { Loader2 } from 'lucide-react';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { signIn, signUp } from '@/lib/actions/user.actions'
 import PlaidLink from './PlaidLink'
 
@@ -39,9 +39,9 @@ const AuthForm = ({ type }: AuthFormProps) => {
 
   // 2. Define a submit handler.
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     setIsLoading(true)
+
+    
     try {
       //登录
       if (type === 'sign-in') {
