@@ -30,7 +30,7 @@ export declare interface RightSidebarProps {
     banks: Bank[] & Account[];
 }
   
-declare type Transaction = {
+export declare type Transaction = {
     id: string;
     $id: string;
     name: string;
@@ -234,3 +234,67 @@ export declare interface getInstitutionProps {
 export declare interface getTransactionsProps {
     accessToken: string;
 }
+
+export declare interface RecentTransactionsProps {
+    accounts: Account[];
+    transactions: Transaction[];
+    appwriteItemId: string;
+    page: number;
+}
+
+export declare interface BankTabItemProps {
+    account: Account;
+    appwriteItemId?: string;
+  }
+
+export declare interface BankInfoProps {
+    account: Account;
+    appwriteItemId?: string;
+    type: "full" | "card";
+  }
+export declare type AccountTypes =
+    | "depository"
+    | "credit"
+    | "loan "
+    | "investment"
+    | "other";
+
+export declare type CategoryCount = {
+    name: string;
+    count: number;
+    totalCount: number;
+  };
+export declare interface CategoryBadgeProps {
+    category: string;
+}
+
+export declare interface TransactionTableProps {
+    transactions: Transaction[];
+  }
+  
+export declare interface CategoryProps {
+    category: CategoryCount;
+  }
+  
+export declare interface PaginationProps {
+  page: number;
+  totalPages: number;
+}
+
+export declare interface PaymentTransferFormProps {
+    accounts: Account[];
+}
+
+export declare interface getBankByAccountIdProps {
+    accountId: string;
+  }
+  
+export declare interface BankDropdownProps {
+    accounts: Account[];
+    setValue?: UseFormSetValue<any>;
+    otherStyles?: string;
+}
+export declare interface CategoryProps {
+    category: CategoryCount;
+  }
+  

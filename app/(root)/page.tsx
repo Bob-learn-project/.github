@@ -20,18 +20,13 @@ const Home = async ({searchParams: {id, page}} : SearchParamProps) => {
     userId: loggedIn[`$id`]
   });
   //获取不到access_Token 导致账户出错 无法继续
-  console.log(accounts);
 
   if (!accounts) return;
 
   const accountsData = accounts?.data;
   const appwriteItemId = (id as string) || accountsData[0]?.appwriteItemId;
   const account = await getAccount({ appwriteItemId })
-
-  console.log({
-    accountsData,
-    account
-  })
+  //获取不到交易账户信息！important
 
   return (
     <section className='home'>
@@ -53,7 +48,7 @@ const Home = async ({searchParams: {id, page}} : SearchParamProps) => {
           <RecentTransactions
             accounts={accountsData}
             transactions={account?.transactions}
-            appwiteItemId={appwriteItemId}
+            appwriteItemId={appwriteItemId}
             page={currentPage}
           />
       </div>

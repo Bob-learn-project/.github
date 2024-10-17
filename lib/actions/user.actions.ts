@@ -12,7 +12,7 @@ import { plaidClient } from '@/lib/plaid';
 import { CountryCode, ProcessorTokenCreateRequest, ProcessorTokenCreateRequestProcessorEnum, Products } from "plaid";
 import { createBankAccountProps, getBanksProps } from "@/types";
 import { addFundingSource, createDwollaCustomer } from "./dwolla.actions";
-import { getBankProps, getUserInfoProps, User, exchangePublicTokenProps } from "@/types";
+import { getBankProps, getUserInfoProps, User, exchangePublicTokenProps, getBankByAccountIdProps } from "@/types";
 import { revalidatePath } from "next/cache";
 
 const {
@@ -290,6 +290,25 @@ export const getUserInfo = async ({ userId }: getUserInfoProps) => {
     )
 
     return parseStringify(user.documents[0]);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+export const getBankByAccountId = async ({ accountId }: getBankByAccountIdProps) => {
+  try {
+    const { database } = await createAdminClient();
+
+    const bank = await database.listDocuments(
+      DATABASE_ID!,
+      BANK_COLLECTION_ID!,
+      [Query.equal('accountId', [accountId])]
+    )
+
+    if(bank.total !== 1) return null;
+
+    return parseStringify(bank.documents[0]);
   } catch (error) {
     console.log(error)
   }

@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import { PlaidLinkOnSuccess, PlaidLinkOptions, usePlaidLink } from 'react-plaid-link'
 import { exchangePublicToken } from '@/lib/actions/user.actions'
 import { createLinkToken } from '@/lib/actions/user.actions'
+import Image from 'next/image'
 
 //链接银行账户组件
 const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
@@ -18,8 +19,6 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
   useEffect(() => {
     const getLinkToken = async () => {
       const data = await createLinkToken(user);
-      console.log(data);
-      console.log('data 数据')
       setToken(data?.linkToken || '')
     }
 
@@ -42,7 +41,7 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
     token,
     onSuccess
   }
-  console.log(config + '配置信息');
+
 
   const { open, ready } = usePlaidLink(config);
 
@@ -57,12 +56,24 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
           Connect bank
         </Button>
       ) : variant === 'ghost' ? (
-          <Button>
-            Connect bank
+          <Button className='plaidlink-ghost'>
+              <Image 
+              src="/icons/connect-bank.svg"
+              alt="connect bank"
+              width={24}
+              height={24}
+            />
+            <p className='hiddenl text-[16px] font-semibold text-black-2 xl:block'>Connect bank</p>
           </Button>
         ) : (
-            <Button>
-              Connect Bank
+            <Button className='plaidlink-default'>
+              <Image 
+                src="/icons/connect-bank.svg"
+                alt="connect bank"
+                width={24}
+                height={24}
+              />
+              <p className='text-[16px] font-semibold text-black-2'>Connect bank</p>
             </Button>
       )
     }
